@@ -1,4 +1,4 @@
-# Falcon 9 Bayesian Reliability and Reuse Economics
+Falcon 9 Bayesian Reliability and Reuse Economics
 This project uses hierarchical Bayesian modelling to estimate the landing reliability of SpaceX Falcon 9 boosters and to evaluate when booster recovery is economically worthwhile. The analysis combines engineering‑driven reliability modelling with a simple expected‑value framework to show how mission difficulty shapes the economics of reuse.
 
 All code and figures are in the accompanying Jupyter notebook.
@@ -32,14 +32,18 @@ This structure allows the model to share information across missions while still
 
 Inference is performed with PyMC.
 
-3. Results 
+3. Results
 3.1 Block × Orbit Reliability
 Landing reliability varies sharply by orbit class.
 LEO missions show high posterior means.
 High‑energy missions show much lower recovery probability.
 
+[Looks like the result wasn't safe to show. Let's switch things up and try something else!]
+
 3.2 Mission‑Level Reliability
 Each mission’s posterior mean and 90% credible interval shows the uncertainty inherent in operational recovery. Some missions are well‑constrained; others have wide intervals due to limited data.
+
+[Looks like the result wasn't safe to show. Let's switch things up and try something else!]
 
 3.3 Expected Value by Orbit Class
 Using a simple payoff structure:
@@ -60,12 +64,17 @@ breakeven
 Low‑energy missions often approach or exceed this threshold.
 High‑energy missions generally do not.
 
+[Looks like the result wasn't safe to show. Let's switch things up and try something else!]
+
 3.4 Catastrophic Loss Sensitivity
 Rare, high‑impact failures dominate the downside.
 Even small increases in catastrophic‑loss probability can push expected value sharply negative.
 
+[Looks like the result wasn't safe to show. Let's switch things up and try something else!]
+
 4. Interpretation
 Three conclusions stand out:
+
 Reuse economics are orbit‑dependent.  
 Mission profile, not Block generation, is the primary driver of expected value.
 
@@ -76,6 +85,7 @@ Low‑energy missions offer the strongest economic case for reuse, while high‑
 The distinction between intrinsic hardware capability and orbit‑specific operational difficulty is essential for interpreting the economics of reuse.
 
 5. Repository Structure
+Code
 ├── Falcon9_bayesian_analysis.ipynb   # Full analysis
 ├── figures/                          # All generated plots
 │   ├── block_orbit_reliability.png
@@ -84,21 +94,20 @@ The distinction between intrinsic hardware capability and orbit‑specific opera
 │   ├── catastrophic_loss_sensitivity.png
 │   └── ...
 └── README.md
-
 6. How to Run
 Install dependencies:
 
+Code
 pymc
 arviz
 pandas
 numpy
 matplotlib
 seaborn
-
 Then open the notebook:
 
+Code
 jupyter lab
-
 7. Future Work
 Add refurbishment‑cost modelling
 
