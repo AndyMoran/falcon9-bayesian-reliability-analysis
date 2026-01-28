@@ -96,11 +96,17 @@ The distinction between intrinsic hardware capability and orbit‑specific opera
 Install dependencies:
 
 Code
+
 pymc
+
 arviz
+
 pandas
+
 numpy
+
 matplotlib
+
 seaborn
 
 Then open the notebook:
