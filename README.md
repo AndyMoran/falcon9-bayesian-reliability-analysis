@@ -1,23 +1,27 @@
-# Falcon 9 Bayesian Reliability and Reuse Economics
-This project uses hierarchical Bayesian modelling to estimate the landing reliability of SpaceX Falcon 9 boosters and to evaluate when booster recovery is economically worthwhile. The analysis combines engineering‑driven reliability modelling with a simple expected‑value framework to show how mission difficulty shapes the economics of reuse.
+# Falcon 9 Bayesian Reliability and Reuse Economics
+
+This project uses Bayesian modelling to estimate how reliably Falcon 9 boosters land and when recovery makes economic sense. The analysis separates intrinsic hardware capability from mission difficulty, then uses a simple expected‑value model to show how those two forces shape the economics of reuse.
 
 All code and figures are in the accompanying Jupyter notebook.
 
 ## 1. Motivation
-Reusable rockets only make sense when landing reliability is high enough to justify the risk. Falcon 9 boosters fly a wide range of missions, from easy LEO deployments to demanding GTO and high‑energy trajectories. These missions differ in difficulty, and that difficulty drives recovery outcomes.
 
-This project asks three questions:
+Reusable rockets only pay off when landing reliability is high enough to justify the risk. Falcon 9 boosters fly everything from easy LEO missions to demanding GTO and high‑energy trajectories. These missions differ in difficulty, and that difficulty drives recovery outcomes.
 
-- How reliable are Falcon 9 landings across Blocks, orbits, and mission profiles
+This project asks three straightforward questions:
 
-- How much does mission difficulty affect recovery success
+How reliable are Falcon 9 landings across Blocks, orbits, and mission profiles?
 
-- Under what conditions is reuse economically favourable
+How much does mission difficulty affect recovery success?
 
-The goal is clarity: separate hardware capability from operational difficulty, and show how each contributes to the economics of reuse.
+Under what conditions is reuse economically worthwhile?
+
+The goal is to: show what the hardware can do, show what the missions demand, and explain how the two interact.
 
 ## 2. Data and Method
+
 **Hierarchical Bayesian Model**
+
 A multilevel logistic model estimates landing probability using:
 
 - Block generation (intrinsic hardware capability)
@@ -28,21 +32,48 @@ A multilevel logistic model estimates landing probability using:
 
 - Payload mass
 
-This structure allows the model to share information across missions while still capturing real differences between Blocks and orbits. It also avoids misleading comparisons by separating intrinsic reliability from the operational environment.
+This structure lets the model share information across missions while still capturing real differences between Blocks and orbits. It avoids misleading comparisons by separating hardware reliability from operational environment.
 
 Inference is performed with PyMC.
 
-## 3. Results
-### 3.1 Block × Orbit Reliability
-Landing reliability varies sharply by orbit class.
-LEO missions show high posterior means.
-High‑energy missions show much lower recovery probability.
+## 2.1 Convergence Diagnostics
 
+The model’s convergence was checked using standard Bayesian diagnostics:
+
+- r̂ values were all at or very near 1.00, showing stable chains.
+
+- Effective sample sizes (ESS) were high for both bulk and tail estimates.
+
+- Trace plots showed good mixing with no drift or sticking.
+
+- Energy plots showed no pathological behaviour.
+
+- No divergences were reported after tuning.
+
+These checks give confidence that the posterior summaries are reliable and that the hierarchical structure is well‑behaved.
+
+## 3. Results
+
+### 3.1 Block × Orbit Reliability
+
+Landing reliability varies sharply by orbit class.
+
+- LEO missions show high posterior means.
+
+- High‑energy missions show much lower recovery probability.
+
+Block differences exist, but orbit class dominates.
 
 ### 3.2 Mission‑Level Reliability
-Each mission’s posterior mean and 90% credible interval shows the uncertainty inherent in operational recovery. Some missions are well‑constrained; others have wide intervals due to limited data.
+
+Each mission’s posterior mean and 90% credible interval shows the uncertainty inherent in recovery.
+
+Well‑sampled missions are tightly constrained.
+
+Rare or high‑energy missions have wide intervals.
 
 ### 3.3 Expected Value by Orbit Class
+
 Using a simple payoff structure:
 
 - +30 M for a successful landing
@@ -51,28 +82,34 @@ Using a simple payoff structure:
 
 the breakeven landing probability is:
 
-𝑝breakeven = 50/80 ≈ 0.625
+𝑝
+breakeven
+=
+50
+80
+≈
+0.625
 
 Low‑energy missions often approach or exceed this threshold.
 High‑energy missions generally do not.
 
-### 3.4 Catastrophic Loss Sensitivity
+## 3.4 Catastrophic‑Loss Sensitivity
+
 Rare, high‑impact failures dominate the downside.
-Even small increases in catastrophic‑loss probability can push expected value sharply negative.
+Even small increases in catastrophic‑loss probability push expected value sharply negative.
 
 ## 4. Interpretation
+
 Three conclusions stand out:
 
-**Reuse economics are orbit‑dependent.**  
+Reuse economics are orbit‑dependent.  
 Mission profile, not Block generation, is the primary driver of expected value.
 
-**Block 5 is intrinsically reliable**
-but its operational expected value varies because it flies the most demanding missions.
+Block 5 is intrinsically reliable, but its operational expected value varies because it flies the most demanding missions.
 
-**Low‑energy missions offer the strongest economic case for reuse**
-while high‑energy missions remain challenging under the assumed payoff structure.
+Low‑energy missions offer the strongest economic case for reuse, while high‑energy missions remain challenging under the assumed payoff structure.
 
-The distinction between intrinsic hardware capability and orbit‑specific operational difficulty is essential for interpreting the economics of reuse.
+The key distinction is between intrinsic hardware capability and orbit‑specific operational difficulty. Mixing the two leads to bad conclusions.
 
 ## 5. Repository Structure
 
